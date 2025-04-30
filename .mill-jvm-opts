@@ -1,1 +1,2 @@
 -Dchisel.project.root=${PWD}
+--enable-native-access=ALL-UNNAMED
