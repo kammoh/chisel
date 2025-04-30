@@ -73,8 +73,7 @@ object Backend {
     outputSplitCFuncs:          Option[Int] = None,
     disabledWarnings:           Seq[String] = Seq(),
     disableFatalExitOnWarnings: Boolean = false,
-    enableAllAssertions:        Boolean = false,
-    additionalArguments:        Seq[String] = Seq()
+    enableAllAssertions:        Boolean = false
   ) extends svsim.Backend.Settings
 
   def initializeFromProcessEnvironment() = {
@@ -199,8 +198,6 @@ final class Backend(executablePath: String) extends svsim.Backend {
               Seq(flag, value.mkString(" "))
             }
           }.flatten,
-
-          backendSpecificSettings.additionalArguments,
 
           Seq(
             commonSettings.verilogPreprocessorDefines,
