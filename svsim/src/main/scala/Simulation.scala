@@ -451,4 +451,21 @@ object Simulation {
       }
     }
   }
+
+  /**
+    * Tries to detect the project root (workspace) directory based on "chisel.project.root" Java system property
+    *  as well as CHISEL_PROJECT_ROOT, MILL_WORKSPACE_ROOT (set by mill), and PWD environment variables (tried in that order).
+    * If none of those work, returns the current working directory.
+    *
+    * @return the absolute path to the project root or current working directory
+    */
+  def getProjectRootOrCwd: Path =
+    sys.props
+      .get("chisel.project.root")
+      .orElse(sys.env.get("CHISEL_PROJECT_ROOT"))
+      .orElse(sys.env.get("MILL_WORKSPACE_ROOT"))
+      .orElse(sys.env.get("PWD"))
+      .map(Paths.get("").toAbsolutePath.resolve(_))
+      .getOrElse(Paths.get(""))
+      .toAbsolutePath
 }
